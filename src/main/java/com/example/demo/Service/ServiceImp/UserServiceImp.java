@@ -50,7 +50,7 @@ public class UserServiceImp implements UserService {
         if(userOpt.isEmpty()){
             return ResponseEntity.ok(Map.of(
                     "status" , "Unsuccessfull",
-                    "Message" , "User doesn't exist"
+                    "Message" , "User doesn't exist.."
             ));
         }
 
