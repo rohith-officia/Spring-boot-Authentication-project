@@ -14,15 +14,44 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable()) // Can be replaced with method reference
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/Register/**", "/Login/**",
+////                                "PasswordReSet/{email}/**",
+//                                "/checking/**" , "/PasswordReSet2/{email}/**").permitAll()
+//                        .anyRequest().authenticated()
+//                );
+//
+//        return http.build();
+//    }
+//
+//@Bean
+//public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//    http
+//            .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**")) // CSRF enforced except API
+//            .authorizeHttpRequests(auth -> auth
+//                    .requestMatchers("/Register/**", "/Login/**",
+//                            "/PasswordReSet/**", "/PasswordReSet2/**",
+//                            "/checking/**", "/api/**").permitAll()
+//                    .anyRequest().authenticated()
+//            );
+//
+//    return http.build();
+//}
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Can be replaced with method reference
+                .csrf(csrf -> csrf.disable()) // Best for REST APIs
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/Register/**", "/Login/**", "PasswordReSet/{email}/**", "/checking/**" , "/PasswordReSet2/{email}/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/**").permitAll()  // allow all API endpoints
+                        .anyRequest().authenticated()            // everything else needs auth
                 );
 
         return http.build();
     }
+
 }

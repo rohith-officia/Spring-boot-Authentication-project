@@ -79,7 +79,7 @@ public class UserServiceImp implements UserService {
 
         UserModel newUser = user.get();
 
-        newUser.setPassword(changePasswordDTO.getPassword());
+        newUser.setPassword(passwordEncoder.encode(changePasswordDTO.getPassword()));
         userRepository.save(newUser);
 
         return ResponseEntity.ok(Map.of(
