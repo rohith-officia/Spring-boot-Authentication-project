@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Dto.ChangePasswordDTO;
 import com.example.demo.Dto.LoginDTO;
 import com.example.demo.Dto.RegisterDTO;
 import com.example.demo.Model.UserModel;
@@ -32,30 +33,34 @@ public class AuthenticationController {
         return userService.login(loginDTO);
     }
 
-    @PutMapping("PasswordReSet/{email}")
-    public ResponseEntity<?> passwordReSet(@PathVariable String email , @RequestBody UserModel userModel){
+//    @PutMapping("PasswordReSet/{email}")
+//    public ResponseEntity<?> passwordReSet(@PathVariable String email , @RequestBody UserModel userModel){
+//
+//        Optional<UserModel> userOpt = userRepository.findById(email);
+//
+//        // Check if user exists
+//        if(userOpt.isEmpty()){
+//            return ResponseEntity.status(404).body(Map.of(
+//                    "status", "Failed",
+//                    "message", "User not found"
+//            ));
+//        }
+//
+//        // Update Password
+//        UserModel user = userOpt.get();
+//        user.setPassword(userModel.getPassword());
+//        userRepository.save(user);   // ← IMPORTANT: Save changes
+//
+//        return ResponseEntity.ok(Map.of(
+//                "status", "Successful",
+//                "message", "Password has been reset"
+//        ));
+//    }
 
-        Optional<UserModel> userOpt = userRepository.findById(email);
-
-        // Check if user exists
-        if(userOpt.isEmpty()){
-            return ResponseEntity.status(404).body(Map.of(
-                    "status", "Failed",
-                    "message", "User not found"
-            ));
-        }
-
-        // Update Password
-        UserModel user = userOpt.get();
-        user.setPassword(userModel.getPassword());
-        userRepository.save(user);   // ← IMPORTANT: Save changes
-
-        return ResponseEntity.ok(Map.of(
-                "status", "Successful",
-                "message", "Password has been reset"
-        ));
+    @PutMapping("/PasswordReSet2/{email}/")
+    public ResponseEntity<?> passwordReSet2(@RequestBody ChangePasswordDTO changePasswordDTO , @PathVariable String email){
+        return (userService.passwordReSet2(changePasswordDTO , email));
     }
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.Service.ServiceImp;
 
+import com.example.demo.Dto.ChangePasswordDTO;
 import com.example.demo.Dto.LoginDTO;
 import com.example.demo.Dto.RegisterDTO;
 import com.example.demo.Model.UserModel;
@@ -18,7 +19,6 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
 
     @Autowired
     private UserRepository userRepository;
@@ -65,5 +65,27 @@ public class UserServiceImp implements UserService {
                 "status" , "Unsuccessfull",
                 "Message" , "Login failed because of password mismatch"
         ));
+    }
+
+    @Override
+    public ResponseEntity<?> passwordReSet2(ChangePasswordDTO changePasswordDTO, String email){
+        Optional<UserModel> user = userRepository.findById(email);
+        if(user.isEmpty()){
+            return ResponseEntity.status(404).body(Map.of(
+                    "status", "Failed",
+                    "message", "User not found"
+            ));
+        }
+
+        UserModel newUser = user.get();
+
+        newUser.setPassword(changePasswordDTO.getPassword());
+        userRepository.save(newUser);
+
+        return ResponseEntity.ok(Map.of(
+                "status", "Successful",
+                "message", "Password has been reset"
+        ));
+
     }
 }

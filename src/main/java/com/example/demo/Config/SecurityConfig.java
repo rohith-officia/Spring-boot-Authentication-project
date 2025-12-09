@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Can be replaced with method reference
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/Register/**", "/Login/**", "/PasswordReSet/**", "/checking/**").permitAll()
+                        .requestMatchers("/Register/**", "/Login/**", "PasswordReSet/{email}/**", "/checking/**" , "/PasswordReSet2/{email}/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
