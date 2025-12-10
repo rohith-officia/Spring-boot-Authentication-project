@@ -1,15 +1,15 @@
 package com.example.demo.Service.ServiceImp;
 
+import com.example.demo.Dto.ResponseDTO;
 import com.example.demo.Model.UserModel;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.AdminService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -29,9 +29,22 @@ public class AdminServiceImp implements AdminService {
             ));
         }
 
+//        List<Map<String, Object>> userList = users.stream().map(u -> Map.of(
+//                "email", u.getEmail(),
+//                "username", u.getUsername()
+//        )).toList();
+
+        List<Map<String , Object>> userList = new ArrayList<>();
+
+        for(UserModel userOpt : user){
+            Map<String , Object> map = new HashMap<>();
+            map.put("email",userOpt.getEmail());
+            map.put("username" , userOpt.getUsername());
+            userList.add(map);
+        }
         return ResponseEntity.ok(Map.of(
                 "status" , "Successfull",
-                "user" , user
+                "user" , userList
         ));
     }
 
@@ -48,9 +61,14 @@ public class AdminServiceImp implements AdminService {
             ));
         }
 
+        UserModel userRes = user.get();
+        ResponseDTO responseDTO = new ResponseDTO(userRes.getEmail() , userRes.getUsername());
         return ResponseEntity.ok(Map.of(
-                "status", "Successful",
-                "user", user.get()
+                "body" , Map.of(
+                "user", responseDTO),
+                "head" , Map.of(
+                "status", "Successful")
+
         ));
     }
 

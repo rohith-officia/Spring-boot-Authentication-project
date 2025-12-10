@@ -6,5 +6,5 @@ public interface AdminService {
 
     public ResponseEntity<?> getAllUser();
 
-    public ResponseEntity<?> getUser(String email);
+    ResponseEntity<?> getUser(String email);
 }

@@ -1,22 +1,14 @@
 package com.example.demo.Dto;
 
 public class ResponseDTO {
-    private String email;
-    private String username;
+    private final String email;
+    private final String username;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public ResponseDTO(String email, String username) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getEmail() { return email; }
+    public String getUsername() { return username; }
 }
