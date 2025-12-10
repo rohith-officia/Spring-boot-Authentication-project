@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 
 @Service
 public class AdminServiceImp implements AdminService {
@@ -32,4 +34,25 @@ public class AdminServiceImp implements AdminService {
                 "user" , user
         ));
     }
+
+    @Override
+    public ResponseEntity<?> getUser(String email) {
+        System.out.print(email);
+
+        Optional<UserModel> user = userRepository.findById(email);
+
+        if (user.isEmpty()) {
+            return ResponseEntity.status(404).body(Map.of(
+                    "status", "Unsuccessful",
+                    "message", "User not found for email: " + email
+            ));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "status", "Successful",
+                "user", user.get()
+        ));
+    }
+
+
 }
