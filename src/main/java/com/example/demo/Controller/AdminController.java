@@ -14,9 +14,6 @@ import java.util.Map;
 @RequestMapping("/api/")
 public class AdminController {
 
-//    @Autowired
-//    UserRepository userRepository;
-
     @Autowired
     AdminService adminService;
 

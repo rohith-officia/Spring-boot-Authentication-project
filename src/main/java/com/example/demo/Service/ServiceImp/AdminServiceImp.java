@@ -20,33 +20,44 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public ResponseEntity<?> getAllUser() {
-        List<UserModel> user = userRepository.findAll();
+        List<UserModel> users = userRepository.findAll();
 
-        if(user.isEmpty()){
-            return ResponseEntity.ok(Map.of(
-                    "status" , "Successfull",
-                    "Message" , "No user found"
-            ));
+        if (users.isEmpty()) {
+            return ResponseEntity.ok(
+                    Map.of(
+                            "head", Map.of(
+                                    "status", "Successful",
+                                    "message", "No user found"
+                            ),
+                            "body", Map.of(
+                                    "users", List.of()
+                            )
+                    )
+            );
         }
 
-//        List<Map<String, Object>> userList = users.stream().map(u -> Map.of(
-//                "email", u.getEmail(),
-//                "username", u.getUsername()
-//        )).toList();
+        List<Map<String, Object>> userList = new ArrayList<>();
 
-        List<Map<String , Object>> userList = new ArrayList<>();
-
-        for(UserModel userOpt : user){
-            Map<String , Object> map = new HashMap<>();
-            map.put("email",userOpt.getEmail());
-            map.put("username" , userOpt.getUsername());
+        for (UserModel user : users) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("email", user.getEmail());
+            map.put("username", user.getUsername());
             userList.add(map);
         }
-        return ResponseEntity.ok(Map.of(
-                "status" , "Successfull",
-                "user" , userList
-        ));
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "head", Map.of(
+                                "status", "Successful",
+                                "message", "User list fetched successfully"
+                        ),
+                        "body", Map.of(
+                                "users", userList
+                        )
+                )
+        );
     }
+
 
     @Override
     public ResponseEntity<?> getUser(String email) {
