@@ -88,6 +88,9 @@ public class AdminServiceImp implements AdminService {
             ResponseHeadDTO head = new ResponseHeadDTO(
                     "Unsuccesssfull" , "404" , "User not find"
             );
+
+            ResponseDTO<Map<String , Object>> response = new ResponseDTO<>(head , null);
+            return  ResponseEntity.status(400).body(response);
         }
 
         UserModel user = userOpt.get();
