@@ -1,5 +1,6 @@
 package com.example.demo.Service.ServiceImp;
 
+import com.example.demo.Dto.RequestDTO;
 import com.example.demo.Dto.ResponseDTO;
 import com.example.demo.Dto.ResponseHeadDTO;
 import com.example.demo.Model.UserModel;
@@ -8,6 +9,7 @@ import com.example.demo.Service.AdminService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -104,6 +106,99 @@ public class AdminServiceImp implements AdminService {
 
         ResponseDTO<Map<String , Object>> response = new ResponseDTO<>(head , map);
         return ResponseEntity.ok(response);
+    }
+
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public ResponseEntity<ResponseDTO<Map<String, Object>>> addUser(Map<String, String> body) {
+
+            String email = body.get("email");
+            String username = body.get("username");
+            String password = body.get("password");
+
+            if(email == null || username == null || password == null){
+                ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO(
+                        "Unsuccessfull" , 400 , "Invalid Input");
+
+                ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO,null);
+                return ResponseEntity.ok(responseDTO);
+            }
+
+        if(userRepository.existsById(email)) {
+            ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO(
+                    "Unsuccessfull" , 400 , "User already exsist");
+
+            ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO,null);
+            return ResponseEntity.ok(responseDTO);
+        }
+
+        else{
+            UserModel user = new UserModel();
+            user.setPassword(passwordEncoder.encode(password));
+            user.setUsername(username);
+            user.setEmail(email);
+
+            userRepository.save(user);
+
+            Map<String , Object> map = new HashMap<>();
+            map.put("Username" , user.getUsername());
+            map.put("Email" , user.getEmail());
+
+            ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO("Successfull" , 200 , "Fetch successful");
+
+            ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO , map);
+
+            return ResponseEntity.ok(responseDTO);
+
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseDTO<Map<String, Object>>> addNewUser(RequestDTO requestDTO) {
+
+        String email = requestDTO.getEmail();
+        String username = requestDTO.getUsername();
+        String password = requestDTO.getPassword();
+
+        if(email == null || username == null || password == null){
+            ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO(
+                    "Unsuccessfull" , 400 , "Invalid Input");
+
+            ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO,null);
+            return ResponseEntity.ok(responseDTO);
+        }
+
+        if(userRepository.existsById(email)) {
+            ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO(
+                    "Unsuccessfull" , 400 , "User already exsist");
+
+            ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO,null);
+            return ResponseEntity.ok(responseDTO);
+        }
+
+        else{
+            UserModel user = new UserModel();
+            user.setPassword(passwordEncoder.encode(password));
+            user.setUsername(username);
+            user.setEmail(email);
+
+            userRepository.save(user);
+
+            Map<String , Object> map = new HashMap<>();
+            map.put("Username" , user.getUsername());
+            map.put("Email" , user.getEmail());
+
+            ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO("Successfull" , 200 , "Fetch successful");
+
+            ResponseDTO<Map<String , Object>> responseDTO = new ResponseDTO<>(responseHeadDTO , map);
+
+            return ResponseEntity.ok(responseDTO);
+
+        }
     }
 
 //    @Override

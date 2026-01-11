@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Dto.RequestDTO;
 import com.example.demo.Dto.ResponseDTO;
 import com.example.demo.Model.UserModel;
 import com.example.demo.Repository.UserRepository;
@@ -29,5 +30,13 @@ public class AdminController {
         return adminService.getUser(body.get("email"));
     }
 
+    @PostMapping("addUser/")
+    public ResponseEntity<ResponseDTO<Map<String , Object>>> addUser(@RequestBody Map<String , String> body){
+        return adminService.addUser(body);
+    }
 
+    @PostMapping("addNewUser/")
+    public ResponseEntity<ResponseDTO<Map<String , Object>>> addNewUser(@RequestBody RequestDTO requestDTO){
+        return adminService.addNewUser(requestDTO);
+    }
 }
