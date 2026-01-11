@@ -28,4 +28,6 @@ public class AdminController {
     public ResponseEntity<ResponseDTO<Map<String , Object>>> getUser(@RequestBody Map<String , String > body){
         return adminService.getUser(body.get("email"));
     }
+
+
 }

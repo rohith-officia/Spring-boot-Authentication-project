@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public interface AdminService {
 
-    public ResponseEntity<ResponseDTO<List<Map<String , Object>>>> getAllUser();
+    ResponseEntity<ResponseDTO<List<Map<String , Object>>>> getAllUser();
 
     ResponseEntity<ResponseDTO<Map<String , Object>>> getUser(String email);
 }

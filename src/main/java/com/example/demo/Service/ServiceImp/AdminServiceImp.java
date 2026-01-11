@@ -73,7 +73,7 @@ public class AdminServiceImp implements AdminService {
         }
 
         ResponseHeadDTO head = new ResponseHeadDTO(
-                "Successfull" , "200" , userMap.isEmpty() ? "No users found" : "Users fetched successfully"
+                "Successfull" , 200 , userMap.isEmpty() ? "No users found" : "Users fetched successfully"
         );
 
         ResponseDTO<List<Map<String , Object>>> response = new ResponseDTO<>(head , userMap);
@@ -86,7 +86,7 @@ public class AdminServiceImp implements AdminService {
         Optional<UserModel> userOpt = userRepository.findById(email);
         if(userOpt.isEmpty()){
             ResponseHeadDTO head = new ResponseHeadDTO(
-                    "Unsuccesssfull" , "404" , "User not find"
+                    "Unsuccesssfull" , 400 , "User not find"
             );
 
             ResponseDTO<Map<String , Object>> response = new ResponseDTO<>(head , null);
@@ -99,7 +99,7 @@ public class AdminServiceImp implements AdminService {
         map.put("username" , user.getUsername());
 
         ResponseHeadDTO head = new ResponseHeadDTO(
-                "Successfull" , "200" , "User fetched successfully"
+                "Successfull" , 200 , "User fetched successfully"
         );
 
         ResponseDTO<Map<String , Object>> response = new ResponseDTO<>(head , map);
