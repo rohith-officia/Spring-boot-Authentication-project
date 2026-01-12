@@ -5,6 +5,8 @@ import com.example.demo.Dto.LoginDTO;
 import com.example.demo.Dto.RegisterDTO;
 import com.example.demo.Model.UserModel;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.Security.JwtAuthenticationFilter;
+import com.example.demo.Security.JwtService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,10 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    JwtService jwtService;
+
 
     @Override
     public ResponseEntity<?> register(RegisterDTO registerDTO) {
@@ -56,9 +62,11 @@ public class UserServiceImp implements UserService {
 
         UserModel user = userOpt.get();
         if(passwordEncoder.matches(loginDTO.getPassword(),user.getPassword())){
+            String token = jwtService.generateToken(user.getEmail());
             return ResponseEntity.ok(Map.of(
                     "status" , "Successfull",
-                    "Message" , "Login Successful"
+                    "Message" , "Login Successful",
+                    "token" , token
             ));
         }
         return ResponseEntity.ok(Map.of(
