@@ -20,4 +20,10 @@ public class UserDao {
         System.out.print(Query.FIND_ALL_USERS);
         return UserJDBC.query(Query.FIND_ALL_USERS, new UserMapper());
     }
+
+    public int save(UserModel userModel){
+        System.out.print(Query.CREATE_NEW_USER);
+//        System.out.print(userModel.getEmail());
+        return UserJDBC.update(Query.CREATE_NEW_USER , userModel.getEmail() , userModel.getUsername() , userModel.getPassword());
+    }
 }

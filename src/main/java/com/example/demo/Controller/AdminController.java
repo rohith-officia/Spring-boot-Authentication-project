@@ -7,6 +7,7 @@ import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +26,6 @@ public class AdminController {
         return adminService.getAllUser();
     }
 
-    @GetMapping("getALlUserDao/")
-    public ResponseEntity<ResponseDTO<List<Map<String , Object>>>> getAllUserDao(){
-        return adminService.getAllUserDao();
-    }
-
     @PostMapping("getUser/")
     public ResponseEntity<ResponseDTO<Map<String , Object>>> getUser(@RequestBody Map<String , String > body){
         return adminService.getUser(body.get("email"));
@@ -43,5 +39,16 @@ public class AdminController {
     @PostMapping("addNewUser/")
     public ResponseEntity<ResponseDTO<Map<String , Object>>> addNewUser(@RequestBody RequestDTO requestDTO){
         return adminService.addNewUser(requestDTO);
+    }
+
+
+    @GetMapping("getAllUserDao/")
+    public ResponseEntity<ResponseDTO<List<Map<String , Object>>>> getAllUserDao(){
+        return adminService.getAllUserDao();
+    }
+
+    @PostMapping("addNewUserDao/")
+    public int addNewUserDao(@RequestBody RequestDTO requestDTO){
+        return adminService.addNewUserDao(requestDTO);
     }
 }

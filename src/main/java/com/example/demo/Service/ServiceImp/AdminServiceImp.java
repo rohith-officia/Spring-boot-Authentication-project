@@ -214,6 +214,17 @@ public class AdminServiceImp implements AdminService {
 
     }
 
+    @Override
+    public int addNewUserDao(RequestDTO requestDTO) {
+        UserModel userModel = new UserModel();
+
+        userModel.setUsername(requestDTO.getUsername());
+        userModel.setEmail(requestDTO.getEmail());
+        userModel.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
+
+        return userDao.save(userModel);
+    }
+
 //    @Override
 //    public ResponseEntity<?> getUser(String email) {
 //        System.out.print(email);

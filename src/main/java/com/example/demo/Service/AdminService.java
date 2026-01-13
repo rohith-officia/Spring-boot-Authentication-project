@@ -18,4 +18,6 @@ public interface AdminService {
     ResponseEntity<ResponseDTO<Map<String, Object>>> addNewUser(RequestDTO requestDTO);
 
     ResponseEntity<ResponseDTO<List<Map<String, Object>>>> getAllUserDao();
+
+    int addNewUserDao(RequestDTO requestDTO);
 }
