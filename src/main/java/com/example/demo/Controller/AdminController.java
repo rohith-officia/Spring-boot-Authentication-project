@@ -25,6 +25,11 @@ public class AdminController {
         return adminService.getAllUser();
     }
 
+    @GetMapping("getALlUserDao/")
+    public ResponseEntity<ResponseDTO<List<Map<String , Object>>>> getAllUserDao(){
+        return adminService.getAllUserDao();
+    }
+
     @PostMapping("getUser/")
     public ResponseEntity<ResponseDTO<Map<String , Object>>> getUser(@RequestBody Map<String , String > body){
         return adminService.getUser(body.get("email"));

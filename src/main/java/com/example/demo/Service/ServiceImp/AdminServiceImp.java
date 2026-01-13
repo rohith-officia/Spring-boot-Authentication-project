@@ -1,5 +1,6 @@
 package com.example.demo.Service.ServiceImp;
 
+import com.example.demo.Dao.UserDao;
 import com.example.demo.Dto.RequestDTO;
 import com.example.demo.Dto.ResponseDTO;
 import com.example.demo.Dto.ResponseHeadDTO;
@@ -199,6 +200,17 @@ public class AdminServiceImp implements AdminService {
             return ResponseEntity.ok(responseDTO);
 
         }
+    }
+
+    @Autowired
+    UserDao userDao;
+
+    @Override
+    public ResponseEntity<ResponseDTO<List<Map<String, Object>>>> getAllUserDao() {
+        ResponseHeadDTO responseHeadDTO = new ResponseHeadDTO("Successfull" , 200 , "Fetch successful");
+        ResponseDTO <List<Map<String , Object>>> responseDTO = new ResponseDTO<>(responseHeadDTO , userDao.findAll());
+        return ResponseEntity.ok(responseDTO);
+
     }
 
 //    @Override

@@ -16,4 +16,6 @@ public interface AdminService {
     ResponseEntity<ResponseDTO<Map<String , Object>>> addUser(Map<String, String> body);
 
     ResponseEntity<ResponseDTO<Map<String, Object>>> addNewUser(RequestDTO requestDTO);
+
+    ResponseEntity<ResponseDTO<List<Map<String, Object>>>> getAllUserDao();
 }
