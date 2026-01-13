@@ -1,5 +1,6 @@
 package com.example.demo.Dao;
 
+import com.example.demo.DButil.Query;
 import com.example.demo.Model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +15,9 @@ public class UserDao {
     @Autowired
    JdbcTemplate UserJDBC;
 
+
     public List<Map<String , Object>> findAll(){
-        return UserJDBC.query("Select * from User_Detail" , new UserMapper());
+        System.out.print(Query.FIND_ALL_USERS);
+        return UserJDBC.query(Query.FIND_ALL_USERS, new UserMapper());
     }
 }
