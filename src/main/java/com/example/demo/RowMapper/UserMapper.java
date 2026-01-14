@@ -1,8 +1,5 @@
-package com.example.demo.Dao;
+package com.example.demo.RowMapper;
 
-import com.example.demo.Model.UserModel;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

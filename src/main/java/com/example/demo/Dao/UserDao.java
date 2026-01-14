@@ -2,6 +2,7 @@ package com.example.demo.Dao;
 
 import com.example.demo.DButil.Query;
 import com.example.demo.Model.UserModel;
+import com.example.demo.RowMapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
