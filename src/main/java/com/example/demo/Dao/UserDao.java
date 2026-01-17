@@ -25,6 +25,8 @@ public class UserDao {
     public int save(UserModel userModel){
         System.out.print(Query.CREATE_NEW_USER);
 //        System.out.print(userModel.getEmail());
-        return UserJDBC.update(Query.CREATE_NEW_USER , userModel.getEmail() , userModel.getUsername() , userModel.getPassword());
+        return UserJDBC.update(Query.CREATE_NEW_USER ,
+                userModel.getEmail() , userModel.getUsername() ,
+                userModel.getPassword());
     }
 }
