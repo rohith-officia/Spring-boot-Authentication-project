@@ -8,6 +8,7 @@ import com.example.demo.Model.StudentModels;
 import com.example.demo.Model.UserModel;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.EmployeeService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -36,9 +38,24 @@ public class EmployeeServiceImp  implements EmployeeService {
     @Override
     public ResponseEntity<ResponseDTO<Map<String, Object>>> getEmployee(RequestDTO requestDTO) {
 
-        String userServiceUrl = "http://localhost:8080/userdetail/{email}/";
+/*        String studentServiceUrl = "http://localhost:8080/userdetail/{email}/";
 
-/*        StudentModels studentModel = null;
+        JsonNode jsonNode = restTemplate.getForObject(
+                studentServiceUrl,
+                JsonNode.class, requestDTO.getEmail()
+        );
+
+        System.out.println(jsonNode);
+
+        Map<String , Object> map = restTemplate.getForObject(
+                studentServiceUrl,   // URL
+                Map.class,  // Response type
+                requestDTO.getEmail() // Path variable
+        );
+
+        System.out.print(map);
+
+        StudentModels studentModel = null;
         studentModel = restTemplate.getForObject(
                 userServiceUrl,   // URL
                 StudentModels.class,  // Response type
@@ -47,14 +64,13 @@ public class EmployeeServiceImp  implements EmployeeService {
 
         System.out.print(studentModel);*/
 
+        String url = "http://localhost:8080/userdetail1/";
+        Map<String , String> request = new HashMap<>();
+        request.put("email" , requestDTO.getEmail());
 
-        Map<String , Object> map = restTemplate.getForObject(
-                userServiceUrl,   // URL
-                Map.class,  // Response type
-                requestDTO.getEmail() // Path variable
-        );
+        JsonNode jsonNode = restTemplate.postForObject(url, request, JsonNode.class);
+        System.out.print(jsonNode);
 
-        System.out.print(map);
 
             UserModel userModel = new UserModel();
             userModel.setEmail(requestDTO.getEmail());
